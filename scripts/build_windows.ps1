@@ -12,11 +12,11 @@ $inc = @('Headers','Headers/SP','Headers/Win','Util','Resources') | ForEach-Obje
 function Check-Exit { if ($LASTEXITCODE -ne 0) { throw "Build command failed: $LASTEXITCODE" } }
 Push-Location $build
 try {
-    & cl.exe /nologo /TP /P /DMSWindows /DWIN32 /DNOMINMAX @inc "/Fi$build/Grain32.rr" "$root/resources/Grain32PiPL.r"
+    & cl.exe /nologo /TP /P /EP /DMSWindows /DWIN32 /DNOMINMAX @inc "/Fi$build/Grain32.rr" "$root/resources/Grain32PiPL.r"
     Check-Exit
     & "$sdk/Examples/Resources/PiPLtool.exe" "$build/Grain32.rr" "$build/Grain32.rrc"
     Check-Exit
-    & cl.exe /nologo /TP /P /DMSWindows @inc "/Fi$build/Grain32.rc" "$build/Grain32.rrc"
+    & cl.exe /nologo /TP /P /EP /DMSWindows @inc "/Fi$build/Grain32.rc" "$build/Grain32.rrc"
     Check-Exit
     & rc.exe /nologo "/fo$build/Grain32.res" "$build/Grain32.rc"
     Check-Exit
