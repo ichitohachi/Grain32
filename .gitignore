@@ -1,0 +1,17 @@
+dist/
+tests/float_passthrough
+.DS_Store
+backups/
+build/
+release/
+sdk/
+RELEASE_PROGRESS.md
+REVIEW-0.12.md
+scripts/build_sample.sh
+scripts/check_registration_file.jsx
+tests/grain_core_tests
+*.obj
+*.pdb
+*.lib
+*.exp
+scripts/smoke_test.jsx

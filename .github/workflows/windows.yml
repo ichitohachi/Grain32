@@ -1,0 +1,52 @@
+name: Windows beta build
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: windows-2022
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download official SDK
+        shell: pwsh
+        env:
+          SDK_URL: ${{ secrets.AE_SDK_WINDOWS_URL }}
+        run: |
+          if (-not $env:SDK_URL) { throw 'Set AE_SDK_WINDOWS_URL to a current official Adobe SDK 25.6 (61) Windows download URL.' }
+          $uri = [Uri]$env:SDK_URL
+          if ($uri.Scheme -ne 'https' -or $uri.Host -ne 'ioconsolerykerprod.blob.core.windows.net') { throw 'Only the official Adobe SDK download host is allowed.' }
+          $archive = "$env:RUNNER_TEMP/sdk.zip"
+          try { Invoke-WebRequest -Uri $uri -OutFile $archive } catch { throw 'SDK download failed. Refresh the expiring SDK URL secret.' }
+          if ((Get-FileHash $archive -Algorithm SHA256).Hash.ToLower() -ne '3d3a39175a09d07f6f9734284636f9eadce968b05161650e3cba097a95905330') { throw 'Unexpected SDK checksum.' }
+          Expand-Archive $archive "$env:RUNNER_TEMP/sdk-outer"
+          $outer = "$env:RUNNER_TEMP/sdk-outer/AfterEffectsSDK_25.6_61_win"
+          & "$outer/7-Zip-Zstandard/7z.exe" x "$outer/ae25.6_61.64bit.AfterEffectsSDK.zstd.zip" "-o$env:RUNNER_TEMP/sdk" -y
+          if ($LASTEXITCODE -ne 0) { throw 'SDK extraction failed.' }
+          $header = Get-ChildItem "$env:RUNNER_TEMP/sdk" -Recurse -Filter AE_Effect.h | Select-Object -First 1
+          if (-not $header) { throw 'SDK header missing.' }
+          $sdkRoot = $header.Directory.Parent.Parent.FullName
+          "AE_SDK_ROOT=$sdkRoot" | Out-File -FilePath $env:GITHUB_ENV -Append
+      - name: Build and test x64
+        shell: pwsh
+        run: |
+          $vs = & "${env:ProgramFiles(x86)}/Microsoft Visual Studio/Installer/vswhere.exe" -latest -products '*' -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -property installationPath
+          Import-Module "$vs/Common7/Tools/Microsoft.VisualStudio.DevShell.dll"
+          Enter-VsDevShell -VsInstallPath $vs -SkipAutomaticLocation -DevCmdArguments '-arch=x64 -host_arch=x64'
+          ./scripts/build_windows.ps1
+      - name: Package
+        shell: pwsh
+        run: |
+          $stage = 'release/Grain32-v0.15.2-Windows-x64'
+          New-Item -ItemType Directory -Force $stage | Out-Null
+          Copy-Item dist/Grain32.aex,README.md,README.ja.md $stage
+          Copy-Item docs "$stage/docs" -Recurse
+          "Version: 0.15.2`nCommit: $env:GITHUB_SHA`nPlatform: Windows x64`nBuilt and core-tested on GitHub Actions. AE host testing pending." | Set-Content "$stage/BUILD.txt"
+          Compress-Archive "$stage/*" release/Grain32-v0.15.2-Windows-x64.zip
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Grain32-v0.15.2-Windows-x64
+          path: release/Grain32-v0.15.2-Windows-x64.zip
+          if-no-files-found: error
+          retention-days: 14
