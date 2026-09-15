@@ -12,7 +12,7 @@ $inc = @('Headers','Headers/SP','Headers/Win','Util','Resources') | ForEach-Obje
 function Check-Exit { if ($LASTEXITCODE -ne 0) { throw "Build command failed: $LASTEXITCODE" } }
 Push-Location $build
 try {
-    & cl.exe /nologo /TP /P /EP /DMSWindows /DWIN32 /DNOMINMAX @inc "/Fi$build/Grain32.rr" "$root/resources/Grain32PiPL.r"
+    & cl.exe /nologo /TP /P /EP /DMSWindows /DWIN32 /D_WINDOWS /DNOMINMAX @inc "/Fi$build/Grain32.rr" "$root/resources/Grain32PiPL.r"
     Check-Exit
     & "$sdk/Examples/Resources/PiPLtool.exe" "$build/Grain32.rr" "$build/Grain32.rrc"
     Check-Exit
@@ -20,7 +20,7 @@ try {
     Check-Exit
     & rc.exe /nologo "/fo$build/Grain32.res" "$build/Grain32.rc"
     Check-Exit
-    & cl.exe /nologo /std:c++17 /EHsc /O2 /MT /LD /DMSWindows /DWIN32 /DNOMINMAX @inc "$root/src/Grain32.cpp" "$root/src/Grain32_UI.cpp" "$build/Grain32.res" /link "/OUT:$dist/Grain32.aex" /MACHINE:X64
+    & cl.exe /nologo /std:c++17 /EHsc /O2 /MT /LD /DMSWindows /DWIN32 /D_WINDOWS /DNOMINMAX @inc "$root/src/Grain32.cpp" "$root/src/Grain32_UI.cpp" "$build/Grain32.res" /link "/OUT:$dist/Grain32.aex" /MACHINE:X64
     Check-Exit
     & cl.exe /nologo /std:c++17 /EHsc /O2 /MT "$root/tests/grain_core_tests.cpp" "/Fe:$build/grain_core_tests.exe"
     Check-Exit
