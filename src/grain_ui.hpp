@@ -1,6 +1,7 @@
 #pragma once
 
 #include "grain_core.hpp"
+#include "AEConfig.h"
 #include "AE_Effect.h"
 #include "AE_EffectUI.h"
 #include "AE_GeneralPlug.h"
