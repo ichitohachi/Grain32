@@ -2,7 +2,7 @@
 
 After Effects用のCPUフィルムグレイン。8/16/32bpc処理、粒のアニメーション、編集可能なレスポンスカーブを備えています。
 
-**0.15.2・ベータテスト版。** [English](README.md) · [ダウンロード](https://github.com/ichitohachi/Grain32/releases) · [不具合報告](https://github.com/ichitohachi/Grain32/issues/new/choose)
+**0.15.2・正式リリース。** [English](README.md) · [ダウンロード](https://github.com/ichitohachi/Grain32/releases/latest) · [不具合報告](https://github.com/ichitohachi/Grain32/issues/new/choose)
 
 独立して開発しているエフェクトです。AdobeやElement Supplyとの提携はなく、Fast Grainとのピクセル単位の一致は保証しません。
 

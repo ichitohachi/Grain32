@@ -2,7 +2,7 @@
 
 CPU film grain for Adobe After Effects, with 8/16/32-bpc processing, animated grain, and an editable response curve.
 
-**Version 0.15.2 — beta testing.** [日本語](README.ja.md) · [Downloads](https://github.com/ichitohachi/Grain32/releases) · [Report a bug](https://github.com/ichitohachi/Grain32/issues/new/choose)
+**Version 0.15.2 — released.** [日本語](README.ja.md) · [Downloads](https://github.com/ichitohachi/Grain32/releases/latest) · [Report a bug](https://github.com/ichitohachi/Grain32/issues/new/choose)
 
 Grain32 is an independent effect. It is not affiliated with Adobe or Element Supply, and does not promise pixel-identical results to Fast Grain.
 
@@ -23,7 +23,7 @@ Save your project and quit AE before installation. Back up any older Grain32 out
 
 3. Restart AE. Find **Grain32** in **Effect > Noise & Grain**, or search Effects & Presets.
 
-The binary contains Apple Silicon and Intel code. The build deployment target is macOS 12; AE itself may require a newer OS. Intel execution needs beta testing. This beta is ad-hoc signed, not Apple-notarized. If macOS blocks loading, verify the download came from this repository and follow the macOS Privacy & Security approval flow. Report the exact message if approval fails; do not disable system-wide security protections.
+The binary contains Apple Silicon and Intel code. The build deployment target is macOS 12; AE itself may require a newer OS. Intel execution still needs host testing. This release is ad-hoc signed, not Apple-notarized. If macOS blocks loading, verify the download came from this repository and follow the macOS Privacy & Security approval flow. Report the exact message if approval fails; do not disable system-wide security protections.
 
 ### Windows
 
@@ -36,7 +36,7 @@ The binary contains Apple Silicon and Intel code. The build deployment target is
 
 3. Restart AE and find **Grain32** in **Effect > Noise & Grain**.
 
-Copying into Program Files may need administrator permission. This build targets Windows x64, not ARM64, and is not Authenticode-signed. Windows AE host testing is requested from beta testers.
+Copying into Program Files may need administrator permission. This build targets Windows x64, not ARM64, and is not Authenticode-signed. Windows AE host testing is still needed.
 
 For AE 2025, use its corresponding application folder. AE 2026 on Apple Silicon is the development host; other combinations require testing. To uninstall, quit AE and remove only the Grain32 bundle/file you installed.
 
@@ -71,7 +71,7 @@ Normal at Intensity 100 and Blend Opacity 100% displays the grain texture. With 
 
 Animation Speed changes update frequency without interpolation between patterns. Keyframed speed uses current time multiplied by current speed, not an accumulated speed integral, and may cause phase jumps. Version 0.15.2 fixes AE's time-dependency declaration so grain updates on still footage with constant parameters.
 
-## Beta testing
+## Testing and bug reports
 
 Start with [the checklist](docs/TESTING.md). Include plugin version, AE version, OS/CPU, color settings, bit depth, exact parameters and reproduction steps in an issue. English and Japanese reports are welcome. Share only material you have permission to disclose.
 
