@@ -4,8 +4,6 @@ CPU film grain for Adobe After Effects, with 8/16/32-bpc processing, animated gr
 
 **Version 0.15.2 — released.** [日本語](README.ja.md) · [Downloads](https://github.com/ichitohachi/Grain32/releases/latest) · [Report a bug](https://github.com/ichitohachi/Grain32/issues/new/choose)
 
-Grain32 is an independent effect. It is not affiliated with Adobe or Element Supply, and does not promise pixel-identical results to Fast Grain.
-
 ## Download and install
 
 Open **Releases** and download your OS package from **Assets**. The automatically generated **Source code** archives are for developers, not installable plugins. See the release validation notes for the platforms actually tested.
