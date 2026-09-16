@@ -4,6 +4,10 @@ After Effects用のCPUフィルムグレイン。8/16/32bpc処理、粒のアニ
 
 **0.15.2・正式リリース。** [English](README.md) · [ダウンロード](https://github.com/ichitohachi/Grain32/releases/latest) · [不具合報告](https://github.com/ichitohachi/Grain32/issues/new/choose)
 
+**[Mac版をダウンロード](https://github.com/ichitohachi/Grain32/releases/download/v0.15.2/Grain32-v0.15.2-macOS-universal.zip)** · **[Windows版をダウンロード](https://github.com/ichitohachi/Grain32/releases/download/v0.15.2/Grain32-v0.15.2-Windows-x64.zip)**
+
+バージョン0.15.2 · ダウンロードしたZIPを解凍し、下記の手順でインストールしてください。
+
 ## インストール
 
 Releasesの**Assets**からOS用パッケージをダウンロードしてください。**Source code**は開発者向けで、そのままインストールできません。確認済み環境は各リリースの検証欄を参照してください。
